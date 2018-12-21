@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="unit_spacific_values">
+        <item>METRIC</item>
+        <item>IMPERIAL</item>
+    </string-array>
+    <string-array name="unit_spacific_entry">
+        <item>metric</item>
+        <item>imperial</item>
+    </string-array>
+</resources>

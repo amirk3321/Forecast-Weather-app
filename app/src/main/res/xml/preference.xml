@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Location">
+        <SwitchPreference
+        android:title="Device Location"
+        android:summary="Allow device to access location"
+        android:defaultValue="true"
+        android:key="LOCATION_DEVICE"
+        android:disableDependentsState="true"/>
+        <EditTextPreference
+        android:title="Manual Location"
+        android:summary="location set by using editable text"
+        android:key="CUSTOM_LOCATION"
+        android:dependency="LOCATION_DEVICE"
+        android:defaultValue="Karachi"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+    android:title="Unit">
+        <ListPreference
+        android:title="Unit System"
+        android:summary="%s"
+        android:key="UNIT_LIST_PREFERENCE"
+        android:defaultValue="METRIC"
+        android:entries="@array/unit_spacific_entry"
+        android:entryValues="@array/unit_spacific_values"/>
+    </PreferenceCategory>
+</PreferenceScreen>

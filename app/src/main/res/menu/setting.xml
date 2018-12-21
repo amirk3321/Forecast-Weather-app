@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Setting"
+    android:icon="@drawable/ic_settings_black_24dp"
+    android:id="@+id/settingFrag"
+    android:orderInCategory="3"/>
+    <item android:title="7 Days"
+          android:icon="@drawable/ic_date_range_black_24dp"
+          android:id="@+id/futureDetailWeatherFrag"
+          android:orderInCategory="2"/>
+    <item android:title="today"
+          android:icon="@drawable/ic_today_black_24dp"
+          android:id="@+id/currentWeatehrFrag"
+          android:orderInCategory="1"/>
+</menu>

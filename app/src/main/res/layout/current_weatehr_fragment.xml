@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.weather.current.CurrentWeatehrFrag">
+    <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/groupId"
+            app:constraint_referenced_ids="progressBar ,loadingText"/>
+
+    <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:indeterminate="true"
+            app:layout_constraintStart_toEndOf="@+id/guideline5" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guideline5"
+                                                android:orientation="vertical" app:layout_constraintGuide_end="364dp"/>
+    <TextView
+            android:text="Loading..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loadingText"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
+            app:layout_constraintStart_toEndOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:text="Rain Posibility"
+            android:layout_width="0dp"
+            android:textSize="35sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/rain_possible" app:layout_constraintStart_toEndOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/guideline7"
+            android:layout_marginEnd="16dp" android:layout_marginRight="16dp" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guideline7"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_end="547dp"/>
+    <TextView
+            android:text="20.1 °C "
+            android:textSize="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tempature"
+            app:layout_constraintTop_toTopOf="@+id/imageView" app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/rain_possible"
+            app:layout_constraintVertical_bias="0.487"/>
+    <ImageView
+            android:src="@drawable/weathericons"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageView" android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@+id/rain_possible" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="48dp" android:layout_marginRight="48dp"/>
+    <TextView
+            android:text="Feel like 14.3°C "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/feellikeTemp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/tempature"
+            app:layout_constraintStart_toEndOf="@+id/guideline5"
+            app:layout_constraintEnd_toEndOf="@+id/tempature" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"/>
+    <TextView
+            android:text="Wind : SE , 3.5 ms"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:id="@+id/wind_dir" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="52dp"
+            app:layout_constraintTop_toBottomOf="@+id/feellikeTemp"/>
+    <TextView
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Precipitation : 20ms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/precipitaion"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/wind_dir"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
