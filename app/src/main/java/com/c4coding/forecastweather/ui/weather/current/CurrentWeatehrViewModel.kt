@@ -8,11 +8,15 @@ import com.c4coding.forecastweather.internal.lazyDefarred
 
 class CurrentWeatehrViewModel(
     private val forcastRepository: ForcastRepository,
-    unitProvider: UnitProvider) : ViewModel() {
+    unitProvider: UnitProvider
+) : ViewModel() {
     var unitSpacific = unitProvider.getUnitSystem()
-    val isMatric : Boolean
-    get() = unitSpacific == Unit.METRIC
+    val isMatric: Boolean
+        get() = unitSpacific == Unit.METRIC
     val weather by lazyDefarred {
         forcastRepository.getWeather(isMatric)
+    }
+    val location by lazyDefarred {
+        forcastRepository.getLocation()
     }
 }

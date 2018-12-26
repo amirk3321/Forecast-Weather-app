@@ -23,11 +23,11 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
 
-class CurrentWeatehrFrag : FragmentScope(),KodeinAware {
+class CurrentWeatehrFrag : FragmentScope(), KodeinAware {
 
     override val kodein by closestKodein()
 
-    val viewmodelfactory : CurrentViewModelFactory by instance()
+    val viewmodelfactory: CurrentViewModelFactory by instance()
 
 
     private lateinit var viewModel: CurrentWeatehrViewModel
@@ -41,68 +41,82 @@ class CurrentWeatehrFrag : FragmentScope(),KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this,viewmodelfactory)
+        viewModel = ViewModelProviders.of(this, viewmodelfactory)
             .get(CurrentWeatehrViewModel::class.java)
 
         onInitilizeUI()
     }
-    fun onInitilizeUI() = launch{
-        viewModel.weather.await()
-            .observe(this@CurrentWeatehrFrag, Observer {
-                if (it == null) return@Observer
 
-                groupId.visibility=View.GONE
-                setUpdateLocation("karachi")
-                setUpdateDayDate()
-                setUpdateTempFeelLike(it.temperature,it.feelsLikeTemperature)
-                setUpdateCondition(it.conditionText)
-                setPercipetation(it.percipitaitionValue)
-                setWindDir(it.windDirection,it.winSpeed)
-                GlideApp.with(this@CurrentWeatehrFrag)
-                    .setDefaultRequestOptions(RequestOptions()
-                        .placeholder(R.drawable.weathericons))
-                    .load("http:${it.conditionUrlIcon}")
-                    .into(imageView)
-            })
+    fun onInitilizeUI() = launch {
+        val currentWeathe = viewModel.weather.await()
+        val weathelocation = viewModel.location.await()
+        weathelocation.observe(this@CurrentWeatehrFrag, Observer {
+            if (it==null) return@Observer
+
+            setUpdateLocation(it.name)
+        })
+        currentWeathe.observe(this@CurrentWeatehrFrag, Observer {
+            if (it == null) return@Observer
+
+            groupId.visibility = View.GONE
+            setUpdateDayDate()
+            setUpdateTempFeelLike(it.temperature, it.feelsLikeTemperature)
+            setUpdateCondition(it.conditionText)
+            setPercipetation(it.percipitaitionValue)
+            setWindDir(it.windDirection, it.winSpeed)
+            GlideApp.with(this@CurrentWeatehrFrag)
+                .setDefaultRequestOptions(
+                    RequestOptions()
+                        .placeholder(R.drawable.weathericons)
+                )
+                .load("http:${it.conditionUrlIcon}")
+                .into(imageView)
+        })
 
     }
-    private fun setUpdateLocation(location : String){
-        (activity as? AppCompatActivity)?.supportActionBar?.title =location
+
+    private fun setUpdateLocation(location: String) {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = location
     }
-    private fun setUpdateDayDate(){
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle="Today"
+
+    private fun setUpdateDayDate() {
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
     }
-    private fun getSpacificUnit(matric : String ,imperial : String) : String{
+
+    private fun getSpacificUnit(matric: String, imperial: String): String {
         return if (viewModel.isMatric) matric else imperial
     }
-    private fun setUpdateTempFeelLike(tempareture : Double,feelLike : Double){
-        var unit=getSpacificUnit("°C","°F")
-        tempature.text="$tempareture $unit"
-        feellikeTemp.text="Feel Like :$feelLike $unit"
-    }
-    private fun setUpdateCondition(condition : String){
-        rain_possible.text=condition
-    }
-    private fun setPercipetation(percipetati :Double){
-        var unit=getSpacificUnit("mm","in")
-        precipitaion.text="Precipitation : $percipetati $unit"
-    }
-    private fun setWindDir(windDir :String ,windSpeed :Double){
-        wind_dir.text="Wind Direction : $windDir , $windSpeed"
-    }
-        //direct access network api response
-     /*   val weather =ServicesWeatherApi(ConnectionIntercepterImpl(this.context!!))
-        GlobalScope.launch(Dispatchers.Main) {
-           try {
-               val response =weather.getDetails("karachi").await()
-               weatherview.text=response.currentWeather.toString()
-           }catch (e : NoConnectivityExecption){
-               weatherview.text ="Connection Failure"
-               Log.e("NetworkError","No Internet",e)
-           }
-        }
-*/
 
+    private fun setUpdateTempFeelLike(tempareture: Double, feelLike: Double) {
+        var unit = getSpacificUnit("°C", "°F")
+        tempature.text = "$tempareture $unit"
+        feellikeTemp.text = "Feel Like :$feelLike $unit"
+    }
+
+    private fun setUpdateCondition(condition: String) {
+        rain_possible.text = condition
+    }
+
+    private fun setPercipetation(percipetati: Double) {
+        var unit = getSpacificUnit("mm", "in")
+        precipitaion.text = "Precipitation : $percipetati $unit"
+    }
+
+    private fun setWindDir(windDir: String, windSpeed: Double) {
+        wind_dir.text = "Wind Direction : $windDir , $windSpeed"
+    }
+    //direct access network api response
+    /*   val weather =ServicesWeatherApi(ConnectionIntercepterImpl(this.context!!))
+       GlobalScope.launch(Dispatchers.Main) {
+          try {
+              val response =weather.getDetails("karachi").await()
+              weatherview.text=response.currentWeather.toString()
+          }catch (e : NoConnectivityExecption){
+              weatherview.text ="Connection Failure"
+              Log.e("NetworkError","No Internet",e)
+          }
+       }
+*/
 
 
 }
